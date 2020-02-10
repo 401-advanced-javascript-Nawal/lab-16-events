@@ -25,7 +25,7 @@ readFilepromisify(file)
         return data.toString();
     })
     .then(data => writeFile(file, data))
-    .catch(error => console.error('There is an error , promise', error))
+    .catch(error => events.emit('error',error));
 
 // Third Way to read a file with FS (Promisify) & async function
 async function readFileAsync(file) {
@@ -34,7 +34,7 @@ async function readFileAsync(file) {
         console.log('data : ', data);
     }
     catch (error) {
-        console.error('There is an error , async', error);
+        events.emit('error',error);
     }
 }
 

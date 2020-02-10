@@ -2,14 +2,17 @@
 
 const fs = require('fs');
 const util = require('util');
+const events = require('./events.js');
+require('./logger.js');
 
 /********************************** Read A File **********************************/
 const readWithCallBack = (file,callback)=>
 {
   fs.readFile(file , (error,data)=>
   {
-    if(error) {callback(error);}
-    callback(undefined,data);
+    if(error) {
+        events.emit('error',error);
+    }
   });
 };
 
@@ -18,17 +21,14 @@ let readFilepromisify = util.promisify(fs.readFile);
 const readWithPromise = (file) =>
 {
   return readFilepromisify(file)
-    .then(file => JSON.parse(file.toString().trim()))
+    .then(file =>file.toString().trim())
     .then(data => writeFile( file, data))
-    .catch(error => console.error(error));
+    .catch(error => events.emit('error',error));
 };
 
 const writeFile = (file,data) =>
 {
-//   console.log('data in write function : ', data);
-//   data.firstName = 'Nawal  Suliman ';
-//   console.log('data after updated : ', data);
-  let data2 = JSON.stringify(data);
+  let data2 = data.toUpperCase();
   writeFilepromisify(file,data2);
   return data2;
 };
