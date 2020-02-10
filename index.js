@@ -8,8 +8,6 @@ require('./modular/file.js');
 const fs = require('fs');
 const util = require('util');
 
-const reader = ('./modular/reader.js');
-
 /***************************************** Read / Write File System **************************************************/
 // FS File( read , write )
 let file = `${__dirname}/./files/data.text`;
@@ -25,6 +23,7 @@ readFilepromisify(file)
         return data.toString();
     })
     .then(data => writeFile(file, data))
+    .then(data => events.emit('success' , data))
     .catch(error => events.emit('error',error));
 
 // Third Way to read a file with FS (Promisify) & async function
