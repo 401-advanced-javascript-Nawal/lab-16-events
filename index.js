@@ -8,7 +8,7 @@ require('./modular/file.js');
 const fs = require('fs');
 const util = require('util');
 
-const reader = ('./files/reader.js');
+const reader = ('./modular/reader.js');
 
 /***************************************** Read / Write File System **************************************************/
 // FS File( read , write )
