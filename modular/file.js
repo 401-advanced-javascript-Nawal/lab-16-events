@@ -15,8 +15,8 @@ let readFilepromisify = util.promisify(fs.readFile);
 
 readFilepromisify(file)
   .then(data => {
-    console.log('data in read  : ', data);
-    console.log('data promisify : ', data.toString());
+    // console.log('data in read  : ', data);
+    // console.log('data promisify : ', data.toString());
     return data.toString();
   })
   .then(data => writeFile(file, data))
@@ -24,17 +24,17 @@ readFilepromisify(file)
   .catch(error => events.emit('error',error));
 
 // Third Way to read a file with FS (Promisify) & async function
-async function readFileAsync(file) {
-  try {
-    let data = await readFilepromisify(file);
-    console.log('data : ', data);
-  }
-  catch (error) {
-    events.emit('error',error);
-  }
-}
+// async function readFileAsync(file) {
+//   try {
+//     let data = await readFilepromisify(file);
+//     console.log('data : ', data);
+//   }
+//   catch (error) {
+//     events.emit('error',error);
+//   }
+// }
 
-readFileAsync(file);
+// readFileAsync(file);
 
 let writeFilepromisify = util.promisify(fs.writeFile);
 
